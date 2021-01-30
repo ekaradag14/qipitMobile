@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button, FlatList } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 const PromiseComponent = ({promiseProp}) => {
 
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent:'space-between',
         borderColor: 'black',
+        borderRadius: 10,
         borderWidth: 2,
         width: 150,
         height: 70,

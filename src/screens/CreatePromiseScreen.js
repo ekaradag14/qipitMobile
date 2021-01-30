@@ -1,30 +1,27 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, {useState} from 'react';
+import {View,StyleSheet,Text,Button,TextInput,TouchableOpacity,} from 'react-native';
+import DatePicker from 'react-native-date-picker';
 import firestore from '@react-native-firebase/firestore';
-const LoginScreen = ({ navigation }) => {
-  const [title, onChangeTitle] = React.useState('');
-  const [amount, onChangeAmount] = React.useState('');
 
+const LoginScreen = ({ navigation }) => {
+  
+  const [title, onChangeTitle] = useState('');
+  const [amount, onChangeAmount] = useState('');
+  const [inputError, setInputError] = useState(false);
 const addPromiseToBackend = () => {
-       firestore().collection('Promises').add({  title,  amount}).then(() => {  console.log('Promise added!');});
+
+  (title.trim() === '' || amount.trim() === '') ?  setInputError(true) :
+       firestore().collection('Promises')
+       .add({  title,  amount, date})
+       .then(() => {  
+         console.log('Promise added!');  
+         setInputError(false); navigation.navigate('Home')
+        })
 }
 
   //Date Picker
-  const [date, setDate] = React.useState(new Date());
-  const [show, setShow] = React.useState(false);
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+  const [date, setDate] = useState(new Date());
+
 
   return (
     <View style={styles.container}>
@@ -36,6 +33,7 @@ const addPromiseToBackend = () => {
           placeholderTextColor="#003f5c"
           onChangeText={(text) => onChangeTitle(text)}
           value={title}
+          required
         />
       </View>
       <View style={styles.inputView}>
@@ -45,23 +43,21 @@ const addPromiseToBackend = () => {
           placeholderTextColor="#003f5c"
           onChangeText={(text) => onChangeAmount(text)}
           value={amount}
+          required
         />
       </View>
-       <DateTimePicker
-        style={{width: 320, backgroundColor: 'white'}}
-        testID="dateTimePicker"
-        value={date}
-        mode="date"
-        display="default"
-        onChange={onChange}
-        textColor="black"
-      />
+      <DatePicker date={date} onDateChange={setDate} />
 
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={addPromiseToBackend}>
+      <TouchableOpacity style={styles.loginBtn} onPress={addPromiseToBackend}>
         <Text style={styles.loginText}>Create</Text>
       </TouchableOpacity>
+      {inputError && (
+        <Text style={styles.loginText}>
+          Please add valid
+          <Text style={{fontWeight: 'bold'}}> Title</Text> and
+          <Text style={{fontWeight: 'bold'}}> Amount</Text>
+        </Text>
+      )}
     </View>
   );
 };
