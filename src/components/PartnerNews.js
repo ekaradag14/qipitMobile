@@ -1,8 +1,14 @@
 import React, {useEffect} from 'react';
-import {View,StyleSheet,Text,Button,FlatList,SafeAreaView,
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  FlatList,
+  SafeAreaView,
 } from 'react-native';
 import PartnerArticle from './PartnerArticle';
-import dummyArticles from '../screens/data/dummyArticles.json'
+import dummyArticles from '../screens/data/dummyArticles.json';
 
 const PartnerNews = () => {
   useEffect(() => {
@@ -30,7 +36,7 @@ const PartnerNews = () => {
 
 const styles = StyleSheet.create({
   flatList: {
-    height: 100,
+    height: '100%',
   },
 });
 

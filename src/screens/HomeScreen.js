@@ -1,10 +1,18 @@
-import React from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from 'react-native';
-import UpcomingPromises from '../components/UpcomingPromises'
+import React, {useEffect, useContext} from 'react';
+import {View, StyleSheet, Text, Button, SafeAreaView} from 'react-native';
+import UpcomingPromises from '../components/UpcomingPromises';
 import Wallet from '../components/Wallet';
-import PartnerNews from '../components/PartnerNews'
-const HomeScreen = ({ navigation }) => {
+import PartnerNews from '../components/PartnerNews';
 
+const HomeScreen = ({navigation}) => {
+  useEffect(() => {
+    // console.log(value)
+    // const getDimensions = async () => {
+    //   const window = Dimensions.get('window');
+    //   setDimensionsContext(window)
+    // }
+    // getDimensions();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{fontSize: 48}}>Home Screen</Text>
@@ -16,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.hr} />
       <Wallet />
       <View style={styles.hr} />
-      <PartnerNews/>
+      <PartnerNews />
     </SafeAreaView>
   );
 };
@@ -28,8 +36,7 @@ const styles = StyleSheet.create({
   hr: {
     borderBottomColor: 'black',
     borderBottomWidth: 1,
-    margin: '5%'
-    
+    margin: '5%',
   },
 });
 
