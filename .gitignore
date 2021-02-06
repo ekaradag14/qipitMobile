@@ -80,3 +80,12 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
