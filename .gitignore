@@ -89,3 +89,5 @@ buck-out/
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
+google-services.json
+GoogleService-Info.plist
