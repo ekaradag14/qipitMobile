@@ -10,6 +10,7 @@
 .Spotlight-V100
 .TemporaryItems
 .Trashes
+*.json
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
@@ -90,4 +91,4 @@ buck-out/
 .runtimeconfig.json
 .firebase/
 google-services.json
-GoogleService-Info.plist
+**/ios/GoogleService-Info.plist

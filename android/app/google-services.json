@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105648783562",
+    "project_id": "qipit-d2fde",
+    "storage_bucket": "qipit-d2fde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105648783562:android:f5d23708376160dc84b433",
+        "android_client_info": {
+          "package_name": "com.qipit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105648783562-b00ld9gdimjv1scl91ovtkoaolk78t53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5KAqFekxXR0JVM4BQauhZbeoeu8lQAKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105648783562-b00ld9gdimjv1scl91ovtkoaolk78t53.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
