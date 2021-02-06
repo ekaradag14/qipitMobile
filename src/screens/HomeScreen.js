@@ -3,8 +3,10 @@ import {View, StyleSheet, Text, Button, SafeAreaView} from 'react-native';
 import UpcomingPromises from '../components/UpcomingPromises';
 import Wallet from '../components/Wallet';
 import PartnerNews from '../components/PartnerNews';
+import {UserContext} from '../Context/UserContext'
 
 const HomeScreen = ({navigation}) => {
+    const user = useContext(UserContext);
   useEffect(() => {
     // console.log(value)
     // const getDimensions = async () => {
@@ -12,6 +14,7 @@ const HomeScreen = ({navigation}) => {
     //   setDimensionsContext(window)
     // }
     // getDimensions();
+console.log(user)
   }, []);
   return (
     <SafeAreaView style={styles.container}>

@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   cardText: {
-    flex: 1,
+    margin: 1,
     flexDirection: 'row',
-    width: 400,
+    width: 200,
   },
   portada: {
     flex: 1,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   titleTotal: {
     flex: 2,
-    height: '30%',
+    height: 150,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: 'black',

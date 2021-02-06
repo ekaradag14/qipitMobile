@@ -1,42 +1,191 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
   Text,
   Button,
   FlatList,
+  Animated,
+  Image,
   SafeAreaView,
 } from 'react-native';
 import PartnerArticle from './PartnerArticle';
 import dummyArticles from '../screens/data/dummyArticles.json';
 
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {
+  colors,
+  carouselData,
+  SCREEN_WIDTH,
+  CAROUSEL_ITEM_WIDTH,
+  USERS,
+} from './constants';
+
 const PartnerNews = () => {
-  useEffect(() => {
-    //Get Articles
-  });
-  return (
-    <SafeAreaView>
-      <Text style={{fontSize: 23, margin: 10}}>
-        See How Your Losses Gained To Other People
-      </Text>
-      <View style={styles.flatList}>
-        <FlatList
-          horizontal
-          data={dummyArticles}
-          keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => {
-            return <PartnerArticle articleProp={item} />;
-          }}
-        />
+  const [activeSlide, setActiveSlide] = useState(0);
+  const sliderBackground = useRef(new Animated.Value(0)).current;
+  const handleBackgroundChange = (slideIndex) => {
+    Animated.spring(sliderBackground, {
+      toValue: slideIndex,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const renderItem = ({item}) => (
+    <View style={styles.snapCarouselItem}>
+      <View style={styles.carouselItemTitle}>
+        {item.renderIcon()}
+        <Text style={styles.carouselItemTitleText}>{item.title}</Text>
       </View>
-    </SafeAreaView>
+      <Text style={styles.descriptionText}>{item.description}</Text>
+    </View>
+  );
+  const renderPagination = () => (
+    <Pagination
+      dotsLength={carouselData.length}
+      activeDotIndex={activeSlide}
+      dotStyle={styles.dotStyle}
+      containerStyle={styles.paginationContainer}
+    />
+  );
+  const renderListItem = ({item}) => (
+    <View key={item.id} style={styles.card}>
+      <Image style={styles.avatar} source={{uri: item.avatar}} />
+      <Text style={styles.fullNameText}>{item.fullName}</Text>
+    </View>
+  );
+  const bgColor = sliderBackground.interpolate({
+    inputRange: carouselData.map((_, ind) => ind),
+    outputRange: carouselData.map((item) => item.bgColor),
+  });
+
+  const carouselStyle = {
+    ...styles.snapCarousel,
+    backgroundColor: bgColor,
+  };
+
+  //   return (
+  //     <SafeAreaView>
+  //       <Text style={{fontSize: 23, margin: 10}}>
+  //         See How Your Losses Gained To Other People
+  //       </Text>
+  //       <View style={styles.flatList}>
+  //         <FlatList
+  //           horizontal
+  //           data={dummyArticles}
+  //           keyExtractor={(item) => item.id}
+  //           showsHorizontalScrollIndicator={false}
+  //           renderItem={({item}) => {
+  //             return <PartnerArticle articleProp={item} />;
+  //           }}
+  //         />
+  //       </View>
+  //     </SafeAreaView>
+  //   );
+  // };
+  return (
+    <View style={styles.screen}>
+      <Animated.View style={carouselStyle}>
+        <Text style={styles.titleText}>
+          See How Your Losses Gained To Other People
+        </Text>
+        <View style={styles.carouselWrapper}>
+          <Carousel
+            data={carouselData}
+            renderItem={renderItem}
+            onSnapToItem={(index) => setActiveSlide(index)}
+            onScrollIndexChanged={handleBackgroundChange}
+            sliderWidth={SCREEN_WIDTH}
+            itemWidth={CAROUSEL_ITEM_WIDTH}
+          />
+        </View>
+        {renderPagination()}
+      </Animated.View>
+      <FlatList
+        data={USERS}
+        keyExtractor={(user) => String(user.id)}
+        renderItem={renderListItem}
+      />
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
   flatList: {
     height: '100%',
+  },
+  screen: {
+    flex: 1,
+    marginBottom: 28,
+  },
+  snapCarousel: {
+    backgroundColor: colors.kellyGreen,
+    paddingBottom: 16,
+    paddingTop: 8 + getStatusBarHeight(),
+  },
+  descriptionText: {
+    color: colors.biscay,
+    fontSize: 16,
+    paddingVertical: 16,
+  },
+  titleText: {
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    color: colors.white,
+    fontWeight: '900',
+    fontSize: 15,
+  },
+  snapCarouselItem: {
+    height: 154,
+    borderWidth: 1,
+    borderColor: colors.greyBlue,
+    borderRadius: 5,
+    backgroundColor: colors.white,
+    padding: 16,
+  },
+  carouselItemTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  carouselItemTitleText: {
+    fontSize: 18,
+    color: colors.sapphire,
+    fontWeight: '600',
+    marginLeft: 12,
+  },
+  paginationContainer: {
+    paddingVertical: 4,
+  },
+  dotStyle: {
+    backgroundColor: colors.white,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#402583',
+    backgroundColor: colors.white,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 1,
+    borderRadius: 10,
+    marginHorizontal: 12,
+    marginTop: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  avatar: {
+    height: 54,
+    width: 54,
+    resizeMode: 'contain',
+    borderRadius: 54 / 2,
+  },
+  fullNameText: {
+    fontSize: 16,
+    marginLeft: 24,
   },
 });
 

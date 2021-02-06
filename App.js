@@ -9,9 +9,9 @@ import MainNavigator from './src/Navigation/MainNavigator';
 import {UserContext} from './src/Context/UserContext';
 const App = () => {
   return (
-    <UserContext.provider>
+    <UserContext.Provider >
       <MainNavigator />
-    </UserContext.provider>
+    </UserContext.Provider>
   );
 };
 

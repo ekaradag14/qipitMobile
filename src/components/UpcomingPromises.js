@@ -9,14 +9,9 @@ import {
 } from 'react-native';
 import PromiseComponent from './PromiseComponent';
 import dummyPromises from '../screens/data/dummyPromises.json';
-import {DimensionsContext} from '../Context/DimensionsProvider';
 
 const UpcomingPromises = () => {
-  const dimensions = useContext(DimensionsContext);
-  console.log(dimensions);
-  useEffect(() => {
-    //Get Promises
-  });
+
   return (
     <SafeAreaView>
       <Text style={{fontSize: 23, margin: 10}}>Upcoming Promises</Text>
